@@ -1,0 +1,4 @@
+Site Id=Customer Name,Utility Id =A07969,Location = Address,Contract Hour = 8
+Hourly Log:
+Item #,time,Total Forward Corrected Volume(CF),Total Forward Uncorrected Volume(CF),Hourly Ave. Press-a Txdr [H2464-0207](Psia),Hourly Min. Press-a Txdr [H2464-0207](Psia),PT 100 RTD [Pt-100] Scaled(Deg. F),Hourly Max. Flow Rate(CF),Hourly Max. Flow Rate TS.(time),Ambient Temperature(Deg. F)
+1,2065-11-04 20,0,0,13.39035415649414,13.389150619506836,67.96558380126953,0.0,2065-Nov-04 20:51:14,73.4000015258789

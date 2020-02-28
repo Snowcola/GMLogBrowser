@@ -1,0 +1,1 @@
+"C:\Program Files\headlessGMLogToCSV\headlessGMLogToCSV.exe"  -HourlyLog  -DailyLog -MonthlyLog C:\Users\u7j9\Documents\logs
