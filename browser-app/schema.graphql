@@ -1,0 +1,147 @@
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+type HourlyRecord implements Node {
+  """The ID of the object."""
+  id: ID!
+  item: Int
+  timestamp: DateTime
+  totalFwdCorrVol: Int
+  totalFwdUncorrVol: Int
+  avgPressure: Float
+  minPressure: Float
+  temperature: Float
+  maxFlowrate: Float
+  maxFlowrateTimestamp: DateTime
+  ambientTemperature: Float
+  logId: Int
+  corrUsage: Float
+  uncorrUsage: Float
+  minPressureTimestamp: DateTime
+  avgPressureGauge: Float
+  minPressureGauge: Float
+  log: Log
+}
+
+type HourlyRecordConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [HourlyRecordEdge]!
+}
+
+"""A Relay edge containing a `HourlyRecord` and its cursor."""
+type HourlyRecordEdge {
+  """The item at the end of the edge"""
+  node: HourlyRecord
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type Instrument implements Node {
+  """The ID of the object."""
+  id: ID!
+  instrument: String
+  logs(before: String, after: String, first: Int, last: Int): LogConnection
+}
+
+type InstrumentConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [InstrumentEdge]!
+}
+
+"""A Relay edge containing a `Instrument` and its cursor."""
+type InstrumentEdge {
+  """The item at the end of the edge"""
+  node: Instrument
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type Log implements Node {
+  dateCollected: DateTime
+
+  """The ID of the object."""
+  id: ID!
+  instrumentId: String
+  hasHourly: Boolean
+  hasDaily: Boolean
+  hasMonthly: Boolean
+  instrument: Instrument
+  hourlyRecords(before: String, after: String, first: Int, last: Int): HourlyRecordConnection
+}
+
+type LogConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [LogEdge]!
+}
+
+type LogConnectionsConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+
+  """Contains the nodes in this connection."""
+  edges: [LogConnectionsEdge]!
+}
+
+"""A Relay edge containing a `LogConnections` and its cursor."""
+type LogConnectionsEdge {
+  """The item at the end of the edge"""
+  node: Log
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""A Relay edge containing a `Log` and its cursor."""
+type LogEdge {
+  """The item at the end of the edge"""
+  node: Log
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""An object with an ID"""
+interface Node {
+  """The ID of the object."""
+  id: ID!
+}
+
+"""
+The Relay compliant `PageInfo` type, containing data necessary to paginate this connection.
+"""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  """The ID of the object"""
+  node(id: ID!): Node
+  allLogs(before: String, after: String, first: Int, last: Int): LogConnectionsConnection
+  allInstruments(before: String, after: String, first: Int, last: Int): InstrumentConnection
+}
+
